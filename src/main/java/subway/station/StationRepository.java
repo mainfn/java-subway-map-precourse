@@ -18,8 +18,8 @@ public final class StationRepository {
     stations.add(station);
   }
 
-  public boolean deleteStation(final String name) {
-    return stations.removeIf(station -> Objects.equals(station.getName(), name));
+  public void deleteByName(final String name) {
+    stations.removeIf(station -> Objects.equals(station.getName(), name));
   }
 
   public Optional<Station> findByName(final String stationName) {

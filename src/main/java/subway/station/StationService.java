@@ -18,4 +18,10 @@ public final class StationService {
     }
     stationRepository.addStation(Station.of(stationName));
   }
+
+  // 2. 지하철 역 삭제
+  public void deleteStation(final String stationName) {
+    // TODO: 노선(Section)에 등록된 역은 삭제할 수 없음
+    stationRepository.deleteByName(stationName);
+  }
 }
