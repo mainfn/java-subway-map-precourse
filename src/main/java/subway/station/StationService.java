@@ -1,5 +1,6 @@
 package subway.station;
 
+import java.util.List;
 import java.util.Optional;
 
 public final class StationService {
@@ -23,5 +24,10 @@ public final class StationService {
   public void deleteStation(final String stationName) {
     // TODO: 노선(Section)에 등록된 역은 삭제할 수 없음
     stationRepository.deleteByName(stationName);
+  }
+
+  // 3. 모든 지하철 역 조회
+  public List<Station> findAllStations() {
+    return stationRepository.findAllStations();
   }
 }

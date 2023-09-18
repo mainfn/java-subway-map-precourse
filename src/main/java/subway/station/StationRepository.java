@@ -10,7 +10,7 @@ public final class StationRepository {
 
   private final List<Station> stations = new ArrayList<>();
 
-  public List<Station> stations() {
+  public List<Station> findAllStations() {
     return Collections.unmodifiableList(stations);
   }
 
@@ -27,4 +27,5 @@ public final class StationRepository {
         .filter(station -> station.getName().equals(stationName))
         .findFirst();
   }
+
 }
