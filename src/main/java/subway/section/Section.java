@@ -1,5 +1,6 @@
 package subway.section;
 
+import java.util.Objects;
 import subway.line.Line;
 import subway.station.Station;
 
@@ -29,5 +30,23 @@ public final class Section {
 
   public Station getStation() {
     return station;
+  }
+
+  @Override
+  public boolean equals(final Object object) {
+    if (this == object) {
+      return true;
+    }
+    if (object == null || getClass() != object.getClass()) {
+      return false;
+    }
+    Section section = (Section) object;
+    return Objects.equals(line, section.line) && Objects.equals(station,
+        section.station);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(line, station);
   }
 }
