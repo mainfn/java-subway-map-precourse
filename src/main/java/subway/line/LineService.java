@@ -47,5 +47,14 @@ public final class LineService {
     return Line.of(lineName, firstStation.get(), lastStation.get());
   }
 
+  // 2. 지하철 노선 삭제
+  public void deleteLine(final String lineName) {
+    final Optional<Line> foundLine = lineRepository.findByLineName(lineName);
+    if (foundLine.isEmpty()) {
+      throw new IllegalArgumentException("존재하지 않는 노선입니다.");
+    }
+    // TODO: 해당 노선이 포함하는 구간이 존재하는 경우 삭제 불가
+    lineRepository.deleteLineByName(lineName);
+  }
 
 }
