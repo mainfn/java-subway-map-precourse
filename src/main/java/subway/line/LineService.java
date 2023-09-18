@@ -1,5 +1,6 @@
 package subway.line;
 
+import java.util.List;
 import java.util.Optional;
 import subway.station.Station;
 import subway.station.StationRepository;
@@ -57,4 +58,8 @@ public final class LineService {
     lineRepository.deleteLineByName(lineName);
   }
 
+  // 3. 지하철 노선 조회
+  public List<Line> findAll() {
+    return lineRepository.findAll();
+  }
 }

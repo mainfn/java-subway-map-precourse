@@ -10,7 +10,7 @@ public class LineRepository {
 
   private final List<Line> lines = new ArrayList<>();
 
-  public List<Line> lines() {
+  public List<Line> findAll() {
     return Collections.unmodifiableList(lines);
   }
 
