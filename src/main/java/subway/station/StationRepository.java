@@ -18,6 +18,12 @@ public final class StationRepository {
     stations.add(station);
   }
 
+  public void addStations(final Station... stations) {
+    for (final Station station : stations) {
+      addStation(station);
+    }
+  }
+
   public void deleteByName(final String name) {
     stations.removeIf(station -> Objects.equals(station.getName(), name));
   }
@@ -26,6 +32,14 @@ public final class StationRepository {
     return stations.stream()
         .filter(station -> station.getName().equals(stationName))
         .findFirst();
+  }
+
+  public Station getByName(final String stationName) {
+    final Optional<Station> station = findByName(stationName);
+    if (station.isEmpty()) {
+      throw new IllegalArgumentException("존재하지 않는 역입니다.");
+    }
+    return station.get();
   }
 
 }

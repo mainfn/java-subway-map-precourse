@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum SectionFeature {
-  CREATE_LINE("1"),
-  REMOVE_LINE("2"),
+  CREATE_SECTION("1"),
+  REMOVE_SECTION("2"),
   BACKWARD("B");
 
   private final static Map<String, SectionFeature> featureMap = new HashMap<>();

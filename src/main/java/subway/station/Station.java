@@ -1,5 +1,7 @@
 package subway.station;
 
+import java.util.Objects;
+
 public final class Station {
 
   private final String name;
@@ -24,4 +26,28 @@ public final class Station {
   }
 
   // 추가 기능 구현
+
+  @Override
+  public boolean equals(final Object object) {
+    if (this == object) {
+      return true;
+    }
+    if (object == null || getClass() != object.getClass()) {
+      return false;
+    }
+    Station station = (Station) object;
+    return Objects.equals(name, station.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name);
+  }
+
+  @Override
+  public String toString() {
+    return name;
+  }
+
+
 }

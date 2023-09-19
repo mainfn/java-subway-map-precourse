@@ -20,4 +20,17 @@ public final class FeatureSelectionMessages {
       + "## 원하는 기능을 선택하세요.";
 
 
+  public static final String LINE_FEATURE_SELECTION_MESSAGE = "## 노선 관리 화면\n"
+      + "1. 노선 등록\n"
+      + "2. 노선 삭제\n"
+      + "3. 노선 조회\n"
+      + "B. 돌아가기\n"
+      + "\n"
+      + "## 원하는 기능을 선택하세요.";
+  public static final String SECTION_FEATURE_SELECTION_MESSAGE = "## 구간 관리 화면\n"
+      + "1. 구간 등록\n"
+      + "2. 구간 삭제\n"
+      + "B. 돌아가기\n"
+      + "\n"
+      + "## 원하는 기능을 선택하세요.";
 }

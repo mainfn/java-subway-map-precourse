@@ -1,30 +1,18 @@
 package subway.line;
 
-import subway.station.Station;
+import java.util.Objects;
 
 public final class Line {
 
   private final String name;
-  private final Station firstStation;
-  private final Station lastStation;
 
-  private Line(
-      final String name,
-      final Station firstStation,
-      final Station lastStation
-  ) {
+  private Line(final String name) {
     validateLineNameLength(name);
     this.name = name;
-    this.firstStation = firstStation;
-    this.lastStation = lastStation;
   }
 
-  public static Line of(
-      final String name,
-      final Station firstStation,
-      final Station lastStation
-  ) {
-    return new Line(name, firstStation, lastStation);
+  public static Line of(final String name) {
+    return new Line(name);
   }
 
   private void validateLineNameLength(final String lineName) {
@@ -38,11 +26,25 @@ public final class Line {
     return name;
   }
 
-  public Station getFirstStation() {
-    return firstStation;
+  @Override
+  public boolean equals(final Object object) {
+    if (this == object) {
+      return true;
+    }
+    if (object == null || getClass() != object.getClass()) {
+      return false;
+    }
+    Line line = (Line) object;
+    return Objects.equals(name, line.name);
   }
 
-  public Station getLastStation() {
-    return lastStation;
+  @Override
+  public int hashCode() {
+    return Objects.hash(name);
+  }
+
+  @Override
+  public String toString() {
+    return name;
   }
 }

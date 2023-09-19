@@ -8,38 +8,28 @@ import subway.station.StationRepository;
 public final class SectionService {
 
   private final LineRepository lineRepository;
-  private final SectionRepository sectionRepository;
   private final StationRepository stationRepository;
 
   public SectionService(
       final LineRepository lineRepository,
-      final SectionRepository sectionRepository,
       final StationRepository stationRepository
   ) {
     this.lineRepository = lineRepository;
-    this.sectionRepository = sectionRepository;
     this.stationRepository = stationRepository;
   }
 
   // 1. 구간 추가
-  public void addSection(
-      final String lineName,
-      final String stationName,
-      final int order
-  ) {
-    final Line line = lineRepository.getByName(lineName);
-    final Station station = stationRepository.getByName(stationName);
+  public void addSection(final CreateSection createSection) {
+    final Line line = lineRepository.getLineByName(createSection.getLineName());
+    final Station station = stationRepository.getByName(createSection.getStationName());
 
-    sectionRepository.addSection(line, station, order);
+    lineRepository.addSection(line, station, createSection.getOrder());
   }
 
   // 2. 구간 삭제
-  public void deleteSection(
-      final String lineName,
-      final String stationName
-  ) {
-    final Line line = lineRepository.getByName(lineName);
-    final Station station = stationRepository.getByName(stationName);
-    sectionRepository.deleteSection(line, station);
+  public void deleteSection(final DeleteSection deleteSection) {
+    final Line line = lineRepository.getLineByName(deleteSection.getLineName());
+    final Station station = stationRepository.getByName(deleteSection.getStationName());
+    lineRepository.deleteSection(line, station);
   }
 }

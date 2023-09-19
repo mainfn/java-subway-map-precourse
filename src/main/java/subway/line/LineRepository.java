@@ -1,37 +1,85 @@
 package subway.line;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Objects;
+import java.util.Map;
 import java.util.Optional;
+import subway.station.Station;
 
 public class LineRepository {
 
-  private final List<Line> lines = new ArrayList<>();
+  private final Map<Line, List<Station>> subwayMap = new LinkedHashMap<>();
 
-  public List<Line> findAll() {
-    return Collections.unmodifiableList(lines);
+  public Map<Line, List<Station>> getSubwayMap() {
+    return subwayMap;
   }
 
-  public void addLine(final Line line) {
-    validateNameLength(line.getName());
-    lines.add(line);
+  public List<Line> findAllLines() {
+    return List.copyOf(subwayMap.keySet());
   }
 
-  public Optional<Line> findByLineName(final String lineName) {
-    return lines.stream()
+  public Optional<Line> findLineByName(final String lineName) {
+    return findAllLines().stream()
         .filter(line -> line.getName().equals(lineName))
         .findFirst();
   }
 
-  public boolean deleteLineByName(final String name) {
-    return lines.removeIf(line -> Objects.equals(line.getName(), name));
+  public Line getLineByName(final String lineName) {
+    final Optional<Line> line = findLineByName(lineName);
+    if (line.isEmpty()) {
+      throw new IllegalArgumentException("존재하지 않는 노선입니다.");
+    }
+    return line.get();
   }
 
-  public void validateNameLength(final String lineName) {
-    if (lineName != null && lineName.length() < 2) {
-      throw new IllegalArgumentException("지하철 노선 이름은 2글자 이상이어야 합니다.");
+  public void addLine(final CreateLine createLine) {
+    final Line line = Line.of(createLine.getLineName());
+    final List<Station> stations = new ArrayList<>();
+    stations.add(createLine.getFirstStation());
+    stations.add(createLine.getLastStation());
+    subwayMap.put(line, stations);
+  }
+
+  public void addLines(final CreateLine... createLines) {
+    for (final CreateLine createLine : createLines) {
+      addLine(createLine);
     }
+  }
+
+  // Line 및 등록된 구간 모두 삭제
+  public void deleteLine(final Line line) {
+    subwayMap.remove(line);
+  }
+
+  // Line 삭제
+  public void deleteLineByName(final String lineName) {
+//    TODO:
+
+  }
+
+  // 구간 추가
+  public void addSection(
+      final Line line,
+      final Station station,
+      final int order
+  ) {
+    final int index = order - 1;
+    final List<Station> stations = subwayMap.get(line);
+
+    stations.add(index, station);
+  }
+
+  // 구간 삭제
+  public void deleteSection(
+      final Line line,
+      final Station station
+  ) {
+    final List<Station> stations = subwayMap.get(line);
+    stations.removeIf(s -> s.equals(station));
+  }
+
+  public List<Station> findStationsByLine(final Line line) {
+    return subwayMap.get(line);
   }
 }
